@@ -111,7 +111,6 @@ void	Server::receiveEvent(int fd)
 	char	buf[1024]; // array pour stocker les datas recus
 	int	bytes;
 	std::vector<std::string> command;
-	// static	std::string final = "";
 
 	client = getClientFduser(fd);
 	memset(buf, 0, sizeof(buf));
@@ -130,12 +129,7 @@ void	Server::receiveEvent(int fd)
 		client->setBuffer(buf);
 		// std::cout << "buf:\n" << buf << std::endl;
 		if (client->getBuffer().find_first_of("\r\n") == std::string::npos)
-		{
-			// std::cout << "buff: " << buf << std::endl;
-			// final += buf;
-			// std::cout << "final: " << final << std::endl;
 			return ;
-		}
 		command = splitBuffer(client->getBuffer());
 		for (size_t i = 0; i < command.size(); i++)
 		{
